@@ -576,14 +576,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1837171581, guid: ef369d416bb61224aa616e388c384659, type: 3}
-      propertyPath: m_AngularDrag
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1837171581, guid: ef369d416bb61224aa616e388c384659, type: 3}
-      propertyPath: m_Constraints
-      value: 56
-      objectReference: {fileID: 0}
     - target: {fileID: 514041148614461912, guid: ef369d416bb61224aa616e388c384659, type: 3}
       propertyPath: m_Name
       value: Player (Rocket)
