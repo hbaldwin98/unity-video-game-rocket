@@ -598,11 +598,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &2039838907 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 2039838907, guid: ef369d416bb61224aa616e388c384659, type: 3}
-  m_PrefabInstance: {fileID: 6444224902081813689}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4210796510471312114
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -670,10 +665,6 @@ PrefabInstance:
     - target: {fileID: 8078071380096059601, guid: 0728bc0a082320d4a92cfae624e0b292, type: 3}
       propertyPath: m_Name
       value: Launchpad
-      objectReference: {fileID: 0}
-    - target: {fileID: 8078071380096059601, guid: 0728bc0a082320d4a92cfae624e0b292, type: 3}
-      propertyPath: m_TagString
-      value: Friendly
       objectReference: {fileID: 0}
     - target: {fileID: 8285028605098085468, guid: 0728bc0a082320d4a92cfae624e0b292, type: 3}
       propertyPath: m_RootOrder
@@ -776,14 +767,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Landingpad
       objectReference: {fileID: 0}
-    - target: {fileID: 258915625633361584, guid: 4c078939c306e0d4ebae8b16d2adf47d, type: 3}
-      propertyPath: m_TagString
-      value: Finish
-      objectReference: {fileID: 0}
-    - target: {fileID: 4849593559289909841, guid: 4c078939c306e0d4ebae8b16d2adf47d, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e9c18a0f618ac9640bc06c1207a9865a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c078939c306e0d4ebae8b16d2adf47d, type: 3}
 --- !u!1001 &6444224902081813689
@@ -797,10 +780,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (Rocket)
       objectReference: {fileID: 0}
-    - target: {fileID: 4710141373450270329, guid: ef369d416bb61224aa616e388c384659, type: 3}
-      propertyPath: audioSource
-      value: 
-      objectReference: {fileID: 2039838907}
     - target: {fileID: 6815371586914091033, guid: ef369d416bb61224aa616e388c384659, type: 3}
       propertyPath: m_RootOrder
       value: 5

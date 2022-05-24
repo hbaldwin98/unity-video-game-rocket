@@ -243,7 +243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thrustSpeed: 1000
   rotationSpeed: 200
-  audioSource: {fileID: 2039838907}
+  rocketBoost: {fileID: 2039838907}
 --- !u!114 &5235263422034168322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,6 +256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b88b856056c9d49968ffc88ce4ae85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelDelay: 1
+  crashDelay: 1
 --- !u!54 &1837171581
 Rigidbody:
   m_ObjectHideFlags: 0

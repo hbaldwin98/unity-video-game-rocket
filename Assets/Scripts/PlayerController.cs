@@ -2,13 +2,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField, Header("Movement")] float thrustSpeed = 10;
-    [SerializeField, Header("Movement")] float rotationSpeed = 10;
+    [Header("Movement")]
+    [SerializeField] float thrustSpeed = 10;
+    [SerializeField] float rotationSpeed = 10;
 
+    [Header("Audio")]
+    [SerializeField] AudioSource rocketBoost;
+    
+    
     Rigidbody _rigidBody;
-    [SerializeField, Header("Audio")] AudioSource audioSource;
     float _verticalMovement = 0f;
     float _rotationalMovement;
+    bool _disableControls = false;
     
     // Start is called before the first frame update
     void Start()
@@ -25,8 +30,15 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Fly();
-        PlayRocketSound();
+        if (!_disableControls)
+        {
+            Fly();
+            PlayRocketSound();
+        }
+        else
+        {
+            rocketBoost.Stop();
+        }
     }
     
     void ProcessInput()
@@ -48,19 +60,24 @@ public class PlayerController : MonoBehaviour
 
     void PlayRocketSound()
     {
-        if ((!audioSource.isPlaying || audioSource.volume < 0.1f) && _verticalMovement > 0) 
+        if ((!rocketBoost.isPlaying || rocketBoost.volume < 0.1f) && _verticalMovement > 0) 
         {
-            audioSource.volume = 0.1f;
-            audioSource.Play();
+            rocketBoost.volume = 0.1f;
+            rocketBoost.Play();
         }
         
         if (_verticalMovement == 0)
         {
-            audioSource.volume -= 0.0025f;
-            if (audioSource.volume == 0)
+            rocketBoost.volume -= 0.0025f;
+            if (rocketBoost.volume == 0)
             {
-                audioSource.Stop();
+                rocketBoost.Stop();
             }
         }
+    }
+
+    public void DisableControls()
+    {
+        _disableControls = true;
     }
 }

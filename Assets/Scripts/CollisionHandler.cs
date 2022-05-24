@@ -1,8 +1,11 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
+  [SerializeField] float levelDelay = 1f;
+  [SerializeField] float crashDelay = 1f;
   void OnCollisionEnter(Collision collision)
   {
     string gameObjectTag = collision.gameObject.tag;
@@ -12,12 +15,26 @@ public class CollisionHandler : MonoBehaviour
         Debug.Log("You hit a friendly object.");
         break;
       case "Finish":
-        LoadNextLevel();
+        StartSuccessSequence();
         break;
       default:
-        ReloadLevel();
+        StartCrashSequence();
         break;
     }
+  }
+
+  void StartCrashSequence()
+  {
+    // todo add SFX upon crash
+    // todo add particle effect upon crash
+    GetComponent<PlayerController>().DisableControls();
+    Invoke("ReloadLevel", crashDelay);
+  }
+
+  void StartSuccessSequence()
+  {
+    GetComponent<PlayerController>().DisableControls();
+    Invoke("LoadNextLevel", levelDelay);
   }
   
   void ReloadLevel()
@@ -29,7 +46,7 @@ public class CollisionHandler : MonoBehaviour
   void LoadNextLevel()
   {
     int nextSceneIndex = SceneManager.GetActiveScene().buildIndex+1;
-    if (nextSceneIndex > SceneManager.sceneCountInBuildSettings)
+    if (nextSceneIndex >= SceneManager.sceneCountInBuildSettings)
     {
       SceneManager.LoadScene(0);
     }
