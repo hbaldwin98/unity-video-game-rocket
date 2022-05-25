@@ -7,10 +7,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float rotationSpeed = 10;
 
     [Header("Audio")]
-    [SerializeField] AudioSource rocketBoost;
-    
-    
+    [SerializeField] AudioClip rocketBoost;
+
     Rigidbody _rigidBody;
+    AudioSource _audioSource;
     float _verticalMovement = 0f;
     float _rotationalMovement;
     bool _disableControls = false;
@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _rigidBody = GetComponent<Rigidbody>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -34,10 +35,6 @@ public class PlayerController : MonoBehaviour
         {
             Fly();
             PlayRocketSound();
-        }
-        else
-        {
-            rocketBoost.Stop();
         }
     }
     
@@ -60,18 +57,19 @@ public class PlayerController : MonoBehaviour
 
     void PlayRocketSound()
     {
-        if ((!rocketBoost.isPlaying || rocketBoost.volume < 0.1f) && _verticalMovement > 0) 
+        _audioSource.clip = rocketBoost;
+        if ((!_audioSource.isPlaying || _audioSource.volume < 0.1f) && _verticalMovement > 0) 
         {
-            rocketBoost.volume = 0.1f;
-            rocketBoost.Play();
+            _audioSource.volume = 0.1f;
+            _audioSource.Play();
         }
         
         if (_verticalMovement == 0)
         {
-            rocketBoost.volume -= 0.0025f;
-            if (rocketBoost.volume == 0)
+            _audioSource.volume -= 0.0025f;
+            if (_audioSource.volume == 0)
             {
-                rocketBoost.Stop();
+                _audioSource.Stop();
             }
         }
     }

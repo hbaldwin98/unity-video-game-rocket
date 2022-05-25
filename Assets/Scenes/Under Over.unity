@@ -303,7 +303,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &963194225
 GameObject:
@@ -558,11 +558,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6815371586914091033, guid: ef369d416bb61224aa616e388c384659, type: 3}
   m_PrefabInstance: {fileID: 6444224902081813689}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &2039838907 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 2039838907, guid: ef369d416bb61224aa616e388c384659, type: 3}
-  m_PrefabInstance: {fileID: 6444224902081813689}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4210796510471312114
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -747,7 +742,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 105444144299567677, guid: 4c078939c306e0d4ebae8b16d2adf47d, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 105444144299567677, guid: 4c078939c306e0d4ebae8b16d2adf47d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -814,13 +809,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (Rocket)
       objectReference: {fileID: 0}
-    - target: {fileID: 4710141373450270329, guid: ef369d416bb61224aa616e388c384659, type: 3}
-      propertyPath: audioSource
-      value: 
-      objectReference: {fileID: 2039838907}
     - target: {fileID: 6815371586914091033, guid: ef369d416bb61224aa616e388c384659, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6815371586914091033, guid: ef369d416bb61224aa616e388c384659, type: 3}
       propertyPath: m_LocalPosition.x
