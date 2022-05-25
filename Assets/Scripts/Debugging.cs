@@ -4,11 +4,17 @@ using UnityEngine.SceneManagement;
 
 public class Debugging : MonoBehaviour
 {
+  [SerializeField] Canvas pauseMenu;
+
   CollisionHandler _collisionHandler;
+  GameMusicPlayer _musicPlayer;
+  AudioSource _audioSource;
 
   void Start()
   {
     _collisionHandler = GetComponent<CollisionHandler>();
+    _audioSource = GetComponent<AudioSource>();
+    _musicPlayer = FindObjectOfType<GameMusicPlayer>();
   }
 
   void Update()
@@ -24,7 +30,12 @@ public class Debugging : MonoBehaviour
     }    
     if (Input.GetKeyDown(KeyCode.C))
     {
-      DisableCollisions();
+      ToggleCollisions();
+    }
+
+    if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+    {
+      TogglePause();
     }
   }
 
@@ -43,11 +54,27 @@ public class Debugging : MonoBehaviour
     SceneManager.LoadScene(nextSceneIndex);
   }
 
-  void DisableCollisions()
+  void ToggleCollisions()
   {
     bool res = _collisionHandler.ToggleDebugMode();
 
-    if (res) Debug.Log("Disabling collisions");
-    else Debug.Log("Enabling collisions");
+    Debug.Log(res ? "Disabling collisions" : "Enabling collisions");
+  }
+
+  void TogglePause()
+  {
+    if (Time.timeScale == 1)
+    {
+      _musicPlayer.PauseMusic();
+      _audioSource.Pause();
+      pauseMenu.gameObject.SetActive(true);
+      Time.timeScale = 0;
+      return;
+    }
+    
+    Time.timeScale = 1;
+    pauseMenu.gameObject.SetActive(false);
+    _audioSource.Play();
+    _musicPlayer.UnPauseMusic();
   }
 }

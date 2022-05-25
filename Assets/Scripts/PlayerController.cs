@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PlayerController : MonoBehaviour
 {
@@ -74,7 +75,6 @@ public class PlayerController : MonoBehaviour
         }
 
         if (_audioSource.isPlaying && _audioSource.volume == 0.1f) return; 
-        
         // plays the rocket boost sound
         _audioSource.clip = rocketBoost;
         _audioSource.volume = 0.1f;
