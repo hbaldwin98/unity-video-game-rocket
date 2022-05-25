@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
         if (_verticalMovement == 0)
         {
             _audioSource.volume -= 0.0025f;
-            if (_audioSource.volume == 0)
+            if (_audioSource.volume <= Mathf.Epsilon)
             {
                 _audioSource.Stop();
             }

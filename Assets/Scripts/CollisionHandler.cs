@@ -32,7 +32,6 @@ public class CollisionHandler : MonoBehaviour
     switch (gameObjectTag)
     {
       case "Friendly":
-        Debug.Log("You hit a friendly object.");
         break;
       case "Finish":
         StartSuccessSequence();
