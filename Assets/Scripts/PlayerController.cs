@@ -3,17 +3,20 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] float thrustSpeed = 10;
-    [SerializeField] float rotationSpeed = 10;
+    [SerializeField] float thrustSpeed;
+    [SerializeField] float rotationSpeed;
 
     [Header("Audio")]
     [SerializeField] AudioClip rocketBoost;
 
+    [Header("Particles")] 
+    [SerializeField] ParticleSystem rocketJetParticles;
+
     Rigidbody _rigidBody;
     AudioSource _audioSource;
-    float _verticalMovement = 0f;
+    float _verticalMovement;
     float _rotationalMovement;
-    bool _disableControls = false;
+    bool _disableControls;
     
     // Start is called before the first frame update
     void Start()
@@ -26,16 +29,15 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         ProcessInput();
-
     }
 
     void FixedUpdate()
     {
-        if (!_disableControls)
-        {
-            Fly();
-            PlayRocketSound();
-        }
+        if (_disableControls) return;
+        
+        Fly();
+        PlayRocketSound();
+        ShowRocketParticles();
     }
     
     void ProcessInput()
@@ -57,9 +59,10 @@ public class PlayerController : MonoBehaviour
 
     void PlayRocketSound()
     {
-        _audioSource.clip = rocketBoost;
         if ((!_audioSource.isPlaying || _audioSource.volume < 0.1f) && _verticalMovement > 0) 
         {
+            _audioSource.clip = rocketBoost;
+
             _audioSource.volume = 0.1f;
             _audioSource.Play();
         }
@@ -74,8 +77,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void ShowRocketParticles()
+    {
+        if (_verticalMovement > 0)
+        {
+            rocketJetParticles.Play();
+        }
+        else
+        {
+            rocketJetParticles.Stop();
+        }
+    }
+
     public void DisableControls()
     {
         _disableControls = true;
+        rocketJetParticles.Stop();
     }
 }

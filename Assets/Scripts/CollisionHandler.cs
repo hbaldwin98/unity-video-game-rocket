@@ -1,18 +1,15 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
-  [SerializeField] float levelDelay = 1f;
-  [SerializeField] float crashDelay = 1f;
+  [SerializeField] float levelDelay;
+  [SerializeField] float crashDelay;
   [SerializeField] AudioClip crashSound;
   [SerializeField] AudioClip successSound;
   
   AudioSource _audioSource;
-  bool _crashed = false;
-  bool _success = false;
+  bool _isTransitioning;
   void Start()
   {
     _audioSource = GetComponent<AudioSource>();
@@ -20,7 +17,10 @@ public class CollisionHandler : MonoBehaviour
 
   void OnCollisionEnter(Collision collision)
   {
+    if (_isTransitioning) return;
+    
     string gameObjectTag = collision.gameObject.tag;
+
     switch (gameObjectTag)
     {
       case "Friendly":
@@ -37,18 +37,18 @@ public class CollisionHandler : MonoBehaviour
 
   void StartCrashSequence()
   {
-    // todo add SFX upon crash
-    // todo add particle effect upon crash
+    _isTransitioning = true;
     GetComponent<PlayerController>().DisableControls();
     PlayCrashSound();
-    Invoke("ReloadLevel", crashDelay);
+    Invoke(nameof(ReloadLevel), crashDelay);
   }
 
   void StartSuccessSequence()
   {
+    _isTransitioning = true;
     GetComponent<PlayerController>().DisableControls();
     PlaySuccessSound();
-    Invoke("LoadNextLevel", levelDelay);
+    Invoke(nameof(LoadNextLevel), levelDelay);
   }
   
   void ReloadLevel()
@@ -60,37 +60,19 @@ public class CollisionHandler : MonoBehaviour
   void LoadNextLevel()
   {
     int nextSceneIndex = SceneManager.GetActiveScene().buildIndex+1;
-    if (nextSceneIndex >= SceneManager.sceneCountInBuildSettings)
-    {
-      SceneManager.LoadScene(0);
-    }
-    else
-    {
-      SceneManager.LoadScene(nextSceneIndex);
-    }
+    SceneManager.LoadScene(nextSceneIndex >= SceneManager.sceneCountInBuildSettings ? 0 : nextSceneIndex);
   }
   void PlayCrashSound()
   {
-    if (!_success)
-    {
-      _crashed = true;
-      _audioSource.volume = 0.1f;
-      _audioSource.Stop();
-      _audioSource.clip = crashSound;
-      _audioSource.Play();
-    }
+    _audioSource.volume = 0.1f;
+    _audioSource.Stop();
+    _audioSource.PlayOneShot(crashSound);
 
   }
   void PlaySuccessSound()
   {
-    if (!_crashed && !_success)
-    {
-      _success = true;
-      _audioSource.volume = 0.1f;
-      _audioSource.Stop();
-      _audioSource.clip = successSound;
-      _audioSource.Play();
-    }
-
+    _audioSource.volume = 0.1f;
+    _audioSource.Stop();
+    _audioSource.PlayOneShot(successSound);
   }
 }
