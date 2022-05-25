@@ -36,8 +36,8 @@ public class PlayerController : MonoBehaviour
         if (_disableControls) return;
         
         Fly();
-        PlayRocketSound();
-        ShowRocketParticles();
+        ProcessSound();
+        ProcessParticles();
     }
     
     void ProcessInput()
@@ -57,16 +57,11 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void PlayRocketSound()
+    void ProcessSound()
     {
-        if ((!_audioSource.isPlaying || _audioSource.volume < 0.1f) && _verticalMovement > 0) 
-        {
-            _audioSource.clip = rocketBoost;
-
-            _audioSource.volume = 0.1f;
-            _audioSource.Play();
-        }
-        
+        // if we are not rocket boosting
+        // lower the sound until it hits 0
+        // than stop it
         if (_verticalMovement == 0)
         {
             _audioSource.volume -= 0.0025f;
@@ -74,23 +69,35 @@ public class PlayerController : MonoBehaviour
             {
                 _audioSource.Stop();
             }
+
+            return;
         }
+
+        if (_audioSource.isPlaying && _audioSource.volume == 0.1f) return; 
+        
+        // plays the rocket boost sound
+        _audioSource.clip = rocketBoost;
+        _audioSource.volume = 0.1f;
+        _audioSource.Play();
+        
     }
 
-    void ShowRocketParticles()
+    void ProcessParticles()
     {
-        if (_verticalMovement > 0)
-        {
-            rocketJetParticles.Play();
-        }
-        else
+        // stop the particles of our movement is zero
+        if (_verticalMovement == 0)
         {
             rocketJetParticles.Stop();
+            return;
         }
+        
+        rocketJetParticles.Play();
     }
 
     public void DisableControls()
     {
+        // disables all controls and stops the particles
+        // from emitting as they will continue emitting otherwise
         _disableControls = true;
         rocketJetParticles.Stop();
     }
