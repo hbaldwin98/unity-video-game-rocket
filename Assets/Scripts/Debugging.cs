@@ -15,6 +15,8 @@ public class Debugging : MonoBehaviour
     _collisionHandler = GetComponent<CollisionHandler>();
     _audioSource = GetComponent<AudioSource>();
     _musicPlayer = FindObjectOfType<GameMusicPlayer>();
+    
+    
   }
 
   void Update()

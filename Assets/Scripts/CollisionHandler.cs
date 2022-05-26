@@ -68,8 +68,9 @@ public class CollisionHandler : MonoBehaviour
   
   void LoadNextLevel()
   {
+    DestroyMusic();
     int nextSceneIndex = SceneManager.GetActiveScene().buildIndex+1;
-    SceneManager.LoadScene(nextSceneIndex >= SceneManager.sceneCountInBuildSettings ? 0 : nextSceneIndex);
+    SceneManager.LoadScene(nextSceneIndex >= SceneManager.sceneCountInBuildSettings ? 1 : nextSceneIndex);
   }
   
   void PlayCrashSound()
@@ -85,6 +86,18 @@ public class CollisionHandler : MonoBehaviour
     _audioSource.Stop();
     _audioSource.PlayOneShot(successSound);
   }
+  
+  void DestroyMusic()
+  {
+    MusicToDestroy destroyMusic = FindObjectOfType<MusicToDestroy>();
+    if (!destroyMusic) return;
+
+    GameMusicPlayer musicInstance = FindObjectOfType<GameMusicPlayer>();
+    if (!musicInstance) return;
+    
+    destroyMusic.AddToDestroy(musicInstance);
+    destroyMusic.DestroyAll();
+  } 
 
   public bool ToggleDebugMode()
   {
@@ -92,4 +105,5 @@ public class CollisionHandler : MonoBehaviour
 
     return _debugMode;
   }
+  
 }

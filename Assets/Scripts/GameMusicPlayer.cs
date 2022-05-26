@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class GameMusicPlayer : MonoBehaviour
 {
@@ -20,7 +19,7 @@ public class GameMusicPlayer : MonoBehaviour
     _instance = this;
     _audioSource = GetComponent<AudioSource>();
     
-    DontDestroyOnLoad(this.gameObject);
+    DontDestroyOnLoad(this);
   }
   
   public void PlayMusic()

@@ -53,7 +53,6 @@ public class PlayerController : MonoBehaviour
         Vector3 rotation = new Vector3(0, 0, rotationSpeed * -_rotationalMovement * Time.fixedDeltaTime);
         transform.Rotate(rotation);
         _rigidBody.freezeRotation = false;
-
         _rigidBody.AddRelativeForce(Vector3.up * (thrustSpeed * _verticalMovement * Time.fixedDeltaTime));
     }
 
